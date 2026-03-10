@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ระบบเวรศาล</title>
+</head>
 
+<body>
+
+<h1>ระบบบันทึกเวรศาล</h1>
+
+<h2>เพิ่มเจ้าหน้าที่</h2>
+
+<form method="POST" action="/add_officer">
+
+ชื่อ
+<input name="name">
+
+ตำแหน่ง
+<input name="position">
+
+<button type="submit">บันทึก</button>
+
+</form>
+
+
+<h2>บันทึกเวร</h2>
+
+<form method="POST" action="/add_duty">
+
+เจ้าหน้าที่
+
+<select name="officer_id">
+
+{% for o in officers %}
+<option value="{{o.id}}">{{o.name}}</option>
+{% endfor %}
+
+</select>
+
+
+ประเภทเวร
+
+<select name="duty_type">
+
+<option>ตรวจสอบการจับ</option>
+<option>หมายจับ</option>
+<option>หมายค้น</option>
+
+</select>
+
+
+วันที่
+
+<input type="date" name="duty_date">
+
+
+จำนวนเงิน
+
+<input type="number" name="amount">
+
+
+หมายเหตุ
+
+<input name="note">
+
+
+<button type="submit">บันทึก</button>
+
+</form>
+
+
+
+<h2>รายการเวร</h2>
+
+<table border="1">
+
+<tr>
+<th>วันที่</th>
+<th>ชื่อ</th>
+<th>ประเภท</th>
+<th>เงิน</th>
+<th>หมายเหตุ</th>
+</tr>
+
+{% for d in duties %}
+
+<tr>
+<td>{{d.duty_date}}</td>
+<td>{{d.name}}</td>
+<td>{{d.duty_type}}</td>
+<td>{{d.amount}}</td>
+<td>{{d.note}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/report">ดูรายงานรายเดือน</a>
+
+</body>
+</html>
